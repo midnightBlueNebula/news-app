@@ -11,6 +11,23 @@ class ArticlesController < ApplicationController
 
   def create
     @article = current_user.articles.build(article_params)
+    
+    if(category = params[:article][:category])
+      if (articles_cat = Category.find_by(name: category))
+        articles_cat << @article
+      else
+        Category.create(name: category, article_id: @article.id) 
+      end
+    end
+
+    if(tags = params[:article][:tags])
+      tags = tags.split(", ") if tags.match(", ")
+        
+      tags.each do |tag|
+        article_tag = Tag.create(name: tag) unless article_tag = Tag.find_by(name: tag))
+        Tagging.create(article_id: @article.id, tag_id: article_tag.id)
+      end
+    end
 
     if @article.save
     else
