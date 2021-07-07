@@ -3,9 +3,19 @@ class User < ApplicationRecord
 
     has_secure_password
 
-    has_many :articles
+    has_many :articles, dependent: :destroy
+    has_many :comments, dependent: :destroy
 
+    has_many :follower_in_relationships, class_name: "Relationship",
+                                        foreign_key: "follower_id",
+                                          dependent: :destroy
 
+    has_many :followed_in_relationships, class_name: "Relationship",
+                                        foreign_key: "followed_author_id",
+                                          dependent: :destroy
+
+    has_many :followed_authors, through: :follower_in_relationships
+    has_many :followers, through: :followed_in_relationships
 
 
 
