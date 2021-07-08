@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TagsControllerTest < ActionDispatch::IntegrationTest
+class VotingCommentTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

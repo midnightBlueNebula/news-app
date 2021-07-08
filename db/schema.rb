@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_07_194700) do
+ActiveRecord::Schema.define(version: 2021_07_08_190511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,9 +76,36 @@ ActiveRecord::Schema.define(version: 2021_07_07_194700) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "voting_articles", force: :cascade do |t|
+    t.boolean "liked"
+    t.bigint "user_id"
+    t.bigint "article_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_voting_articles_on_article_id"
+    t.index ["user_id", "article_id"], name: "index_voting_articles_on_user_id_and_article_id", unique: true
+    t.index ["user_id"], name: "index_voting_articles_on_user_id"
+  end
+
+  create_table "voting_comments", force: :cascade do |t|
+    t.boolean "liked"
+    t.boolean "author_liked"
+    t.bigint "user_id"
+    t.bigint "comment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_voting_comments_on_comment_id"
+    t.index ["user_id", "comment_id"], name: "index_voting_comments_on_user_id_and_comment_id", unique: true
+    t.index ["user_id"], name: "index_voting_comments_on_user_id"
+  end
+
   add_foreign_key "articles", "users"
   add_foreign_key "comments", "articles"
   add_foreign_key "comments", "users"
   add_foreign_key "taggings", "articles"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "voting_articles", "articles"
+  add_foreign_key "voting_articles", "users"
+  add_foreign_key "voting_comments", "comments"
+  add_foreign_key "voting_comments", "users"
 end

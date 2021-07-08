@@ -17,6 +17,10 @@ class User < ApplicationRecord
     has_many :followed_authors, through: :follower_in_relationships
     has_many :followers, through: :followed_in_relationships
 
+    has_many :voting_articles
+    has_many :voting_comments
+    
+
 
 
     
