@@ -5,6 +5,12 @@ ruby '2.6.3'
 
 #Add gems beneath
 gem 'bcrypt'
+gem 'jquery-rails'
+gem 'bootstrap-sass'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
+gem 'carrierwave'
+gem 'mini_magick'
 #Add gems above
 
 #Default rails gems

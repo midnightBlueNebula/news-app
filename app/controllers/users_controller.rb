@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to #user profile
+      redirect_to "/users/login"
     else
       back_or_root
     end
@@ -41,7 +41,10 @@ class UsersController < ApplicationController
   def show
   end
 
-  def log_in
+  def login_page
+  end
+
+  def login_action
     @user = User.find_by(email: params[:login][:email])
 
     if @user && @user.authenticate(params[:login][:password])
@@ -53,7 +56,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def log_out
+  def logout_action
     logout
   end
 

@@ -19,6 +19,10 @@ class User < ApplicationRecord
 
     has_many :voting_articles
     has_many :voting_comments
+
+    validates :name, presence: true, length: { maximum: 50 }
+    validates :email, presence: true, length: { maximum: 300 }
+    validates :password, presence: true, length: { minimum:6, maximum: 300 }
     
 
 
